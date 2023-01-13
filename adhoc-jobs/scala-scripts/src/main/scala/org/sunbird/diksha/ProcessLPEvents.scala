@@ -1,0 +1,28 @@
+package org.sunbird.diksha
+
+import org.apache.spark.SparkContext
+import org.ekstep.analytics.framework.DataFetcher
+import org.ekstep.analytics.framework.Fetcher
+import org.ekstep.analytics.framework.OutputDispatcher
+import org.ekstep.analytics.framework.Dispatcher
+import org.ekstep.analytics.framework.util.CommonUtil
+import org.ekstep.analytics.framework.util.JSONUtils
+import org.ekstep.analytics.framework.FrameworkContext
+
+object ProcessLPEvents extends optional.Application {
+
+    implicit val fc: FrameworkContext = new FrameworkContext()
+    
+    def main(prefix: String, topic: String, brokerList: String): Unit = {
+
+        val queryConfig = """{"type":"local","queries":[{"file":"/mnt/data/analytics/lp_events/"""+ prefix +""""}]}"""
+        implicit val sparkContext: SparkContext = CommonUtil.getSparkContext(10, "InvalidLPEvents")
+        val data = DataFetcher.fetchBatchData[Map[String, AnyRef]](JSONUtils.deserialize[Fetcher](queryConfig))
+        val lpevents = data.filter(f => !f.contains("@timestamp")).filter(f => f.contains("ets")).map(f => {
+	        Map("@timestamp" -> CommonUtil.df5.print(f.get("ets").get.asInstanceOf[Double].toLong)) ++ f
+        }).map(f => JSONUtils.serialize(f))
+        val config = Map("topic" -> topic, "brokerList" -> brokerList)
+        OutputDispatcher.dispatch(Dispatcher("kafka", config), lpevents)
+        Console.println("Republish to kafka complete!!!")
+    }
+}
