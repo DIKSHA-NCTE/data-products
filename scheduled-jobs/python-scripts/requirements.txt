@@ -1,0 +1,13 @@
+datetime
+pathlib
+pandas
+findspark
+requests
+pandas
+gspread
+oauth2client
+numpy
+configparser
+pyspark
+pathlib
+azure==4.0.0
