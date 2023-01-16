@@ -1,7 +1,0 @@
-azure==4.0.0
-pyspark
-requests
-gspread
-oauth2client
-datetime
-pandas
