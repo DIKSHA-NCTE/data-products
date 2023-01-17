@@ -10,16 +10,15 @@ import requests
 import os
 import sys
 import time
-import datetime
 import csv
 import json
 
 date = sys.argv[1]
-start_date = sys.argv[2];
-end_date = sys.argv[3];
+start_date = sys.argv[2]
+end_date = sys.argv[3]
 output_dir = "/home/nithin/Druid_Tibil/High_Level_Analysis/Engage_High_Level"
 
-os.environ['TZ'] = 'UTC';
+os.environ['TZ'] = 'UTC'
 
 # Timestamp to epoch time conversion
 epoch1 = int(time.mktime(time.strptime(start_date, "%Y-%m-%d %H:%M:%S"))) * 1000

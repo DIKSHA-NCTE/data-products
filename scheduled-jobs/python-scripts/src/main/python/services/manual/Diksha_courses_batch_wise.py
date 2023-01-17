@@ -8,15 +8,15 @@ import requests
 from oauth2client.service_account import ServiceAccountCredentials
 from pyspark.sql import functions as F
 from pyspark.sql import SparkSession
-from datetime import timedelta, date, datetime
+from datetime import timedelta, date
 from azure.storage.blob import BlockBlobService
 
 
 date_work = date.today()
 Date=date_work.strftime("%Y-%m-%d")
-print(date_work);
+print(date_work)
 end_dates = date_work
-start_dates = date_work - timedelta(days=1);
+start_dates = date_work - timedelta(days=1)
 start_date = start_dates.strftime("%Y-%m-%d") + "T00:00:00+00:00"
 end_date = end_dates.strftime("%Y-%m-%d") + "T00:00:00+00:00"
 #######################################################################
@@ -26,15 +26,15 @@ end_date = end_dates.strftime("%Y-%m-%d") + "T00:00:00+00:00"
 base_dir = '/home/analytics/lavanya/NEW_druid_scripts/Diksha_courses/output/batch_wise/All_Tenant_report_' + Date + '.csv'
 
 def Upload_File():
-    my_list_files = glob.glob(base_dir);
+    my_list_files = glob.glob(base_dir)
     blob_file = []
     # print(my_list_files);
     for i in my_list_files:
-        x = i.split('/');
-        y = x[8:];
+        x = i.split('/')
+        y = x[8:]
 
-        z = '/'.join(y);
-        blob_file.append(z);
+        z = '/'.join(y)
+        blob_file.append(z)
 
     block_blob_service = BlockBlobService(account_name='',
                                           sas_token="")
@@ -42,9 +42,9 @@ def Upload_File():
     for i in my_list_files:
         for j in blob_file:
             if (j in i):
-                block_blob_service.create_blob_from_path('tdp-reports', 'All_Tenant_report/' + j, i);
+                block_blob_service.create_blob_from_path('tdp-reports', 'All_Tenant_report/' + j, i)
 
-                print("File Uploaded", i);
+                print("File Uploaded", i)
 event_list=[]
 
 def analysis_work():
@@ -108,12 +108,12 @@ def analysis_work():
       }
     ]
   }
-};
-    jsondata = json.dumps(query_str);
-    print(jsondata);
+}
+    jsondata = json.dumps(query_str)
+    print(jsondata)
     try:
         response = requests.post('http://11.4.0.53:8082/druid/v2', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if len(x) != 0:
             for i in x:
                 event_list.append(i['event'])

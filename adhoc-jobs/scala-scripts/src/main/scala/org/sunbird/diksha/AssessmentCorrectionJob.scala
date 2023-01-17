@@ -7,7 +7,7 @@ import org.sunbird.diksha.model.AssessmentCorrectionModel
 
 object AssessmentCorrectionJob extends IJob {
 
-  implicit val className: String = "org.ekstep.analytics.job.AssessmentCorrectionJob"
+  implicit val className: String = "org.sunbird.diksha.AssessmentCorrectionJob"
 
   def main(config: String)(implicit sc: Option[SparkContext] = None, fc: Option[FrameworkContext] = None): Unit = {
     implicit val SparkContext: SparkContext = sc.orNull
