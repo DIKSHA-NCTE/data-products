@@ -18,7 +18,7 @@ object ScoreMetricMigrationJob extends IJob with BaseReportsJob {
   val userActivityAggDBSettings: Map[String, String] = Map("table" -> "user_activity_agg", "keyspace" -> AppConf.getConfig("sunbird.user.report.keyspace"), "cluster" -> "LMSCluster")
   val assessmentAggregatorDBSettings: Map[String, String] = Map("table" -> "assessment_aggregator", "keyspace" -> AppConf.getConfig("sunbird.user.report.keyspace"), "cluster" -> "LMSCluster")
   val cassandraUrl = "org.apache.spark.sql.cassandra"
-  implicit val className: String = "org.sunbird.analytics.audit.ScoreMetricMigrationJob"
+  implicit val className: String = "org.sunbird.diksha.ScoreMetricMigrationJob"
   val jobName = "ScoreMetricMigrationJob"
 
   // $COVERAGE-OFF$ Disabling scoverage for main and execute method

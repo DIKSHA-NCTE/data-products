@@ -26,7 +26,7 @@ import org.sunbird.analytics.exhaust.collection.UDFUtils
 object CollectionReconciliationJob extends IJob with BaseReportsJob {
 
   // $COVERAGE-OFF$ Disabling scoverage because the job will be deprecated
-  implicit val className: String = "org.sunbird.analytics.audit.CollectionReconciliationJob"
+  implicit val className: String = "org.sunbird.diksha.CollectionReconciliationJob"
   val jobName = "CollectionReconciliationJob"
   val cassandraFormat = "org.apache.spark.sql.cassandra"
 

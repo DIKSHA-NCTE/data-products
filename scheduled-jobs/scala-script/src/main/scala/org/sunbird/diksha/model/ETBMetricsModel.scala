@@ -1,20 +1,16 @@
 package org.sunbird.diksha.model
 
-import java.text.SimpleDateFormat
-import java.util.Calendar
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.{DataFrame, SparkSession}
-import org.ekstep.analytics.framework.fetcher.DruidDataFetcher
 import org.ekstep.analytics.framework.util.{HTTPClient, JSONUtils, JobLogger, RestUtil}
-import org.ekstep.analytics.framework.{AlgoOutput, DataFetcher, Empty, FrameworkContext, IBatchModelTemplate, JobConfig, Level, Output}
+import org.ekstep.analytics.framework.{AlgoOutput, Empty, FrameworkContext, IBatchModelTemplate, Level, Output}
 import org.ekstep.analytics.model.{OutputConfig, ReportConfig}
 import org.ekstep.analytics.util.Constants
 import org.ekstep.analytics.framework.util.CommonUtil
 import org.sunbird.diksha.util.{CourseUtils, TextBookUtils}
 import org.sunbird.cloud.storage.conf.AppConf
-import org.apache.spark.sql.functions._
 
 
 case class TenantInfo(id: String, slug: String)
@@ -52,7 +48,7 @@ case class WeeklyDialCodeScans(date: String, dialcodes: String, scans: Double, s
 case class DialcodeCounts(dialcode: String, scans: Double, date: String)
 
 object ETBMetricsModel extends IBatchModelTemplate[Empty,Empty,FinalOutput,FinalOutput] with Serializable {
-  implicit val className: String = "org.sunbird.analytics.model.report.ETBMetricsModel"
+  implicit val className: String = "org.sunbird.diksha.ETBMetricsModel"
   override def name: String = "ETBMetricsModel"
 
   override def preProcess(events: RDD[Empty], config: Map[String, AnyRef])(implicit sc: SparkContext, fc: FrameworkContext): RDD[Empty] = {

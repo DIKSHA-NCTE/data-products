@@ -3,7 +3,7 @@ package org.sunbird.diksha.model
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.functions._
-import org.apache.spark.sql.{DataFrame, Encoders, SparkSession}
+import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.ekstep.analytics.framework._
 import org.ekstep.analytics.framework.util.{CommonUtil, JSONUtils, JobLogger, RestUtil}
 import org.ekstep.analytics.model.ReportConfig
@@ -26,7 +26,7 @@ case class TBReport(board: String, medium: String, gradeLevel: String, subject: 
 
 object TextbookProgressModel extends IBatchModelTemplate[Empty, TenantInformation, Empty, Empty] with Serializable {
 
-  implicit val className: String = "org.sunbird.analytics.model.TextbookProgressModel"
+  implicit val className: String = "org.sunbird.diksha.model.TextbookProgressModel"
 
   override def name: String = "TextbookProgressModel"
 
@@ -55,7 +55,7 @@ object TextbookProgressModel extends IBatchModelTemplate[Empty, TenantInformatio
   }
 
   override def postProcess(data: RDD[Empty], config: Map[String, AnyRef])(implicit sc: SparkContext, fc: FrameworkContext): RDD[Empty] = {
-    data;
+    data
   }
 
   def getContentData(tenantId: String, slugName: String, config: Map[String, AnyRef])(implicit sc: SparkContext, fc: FrameworkContext): Unit = {
@@ -130,7 +130,7 @@ object TextbookProgressModel extends IBatchModelTemplate[Empty, TenantInformatio
     import sparkSession.implicits._
 
     data
-      .filter(f => (f.status == "Live"))
+      .filter(f =>f.status == "Live")
       .map { f => TBReport(f.board, getFieldList(f.medium), getFieldList(f.gradeLevel), getFieldList(f.subject), f.identifier, getFieldList(f.resourceType), dataFormat(f.createdOn), Option(f.pkgVersion), f.creator, None, None, None,Option(dataFormat(f.lastPublishedOn)), slug, "Live_Report") }
       .toDF
       .na.fill("Missing Metadata")
@@ -139,16 +139,16 @@ object TextbookProgressModel extends IBatchModelTemplate[Empty, TenantInformatio
   def getNonLiveStatusReport(data: RDD[TBContentResult], slug: String)(implicit sparkSession: SparkSession): DataFrame = {
     import sparkSession.implicits._
 
-    val reviewData = data.filter(f => (f.status == "Review"))
+    val reviewData = data.filter(f => f.status == "Review")
       .map { f => TBReport(f.board, getFieldList(f.medium), getFieldList(f.gradeLevel), getFieldList(f.subject), f.identifier, getFieldList(f.resourceType), dataFormat(f.createdOn), None, f.creator, None, Option(f.status), Option(dataFormat(f.lastSubmittedOn)),None, slug, "Non_Live_Status") }
 
-    val limitedSharingData = data.filter(f => (f.status == "Unlisted"))
+    val limitedSharingData = data.filter(f => f.status == "Unlisted")
       .map { f => TBReport(f.board, getFieldList(f.medium), getFieldList(f.gradeLevel), getFieldList(f.subject), f.identifier, getFieldList(f.resourceType), dataFormat(f.createdOn), None, f.creator, None, Option(f.status), Option(dataFormat(f.lastPublishedOn)),None, slug, "Non_Live_Status") }
 
-    val publishedReport = data.filter(f => (f.status == "Draft" && null != f.lastPublishedOn))
+    val publishedReport = data.filter(f => f.status == "Draft" && null != f.lastPublishedOn)
       .map { f => TBReport(f.board, getFieldList(f.medium), getFieldList(f.gradeLevel), getFieldList(f.subject), f.identifier, getFieldList(f.resourceType),dataFormat(f.createdOn), None, f.creator,None, Option(f.status), Option(dataFormat(f.lastPublishedOn)),None, slug, "Non_Live_Status") }
 
-    val nonPublishedReport = data.filter(f => (f.status == "Draft" && null == f.lastPublishedOn))
+    val nonPublishedReport = data.filter(f => f.status == "Draft" && null == f.lastPublishedOn)
       .map { f => TBReport(f.board, getFieldList(f.medium), getFieldList(f.gradeLevel), getFieldList(f.subject), f.identifier, getFieldList(f.resourceType),dataFormat(f.lastPublishedOn), None, f.creator,None, Option(f.status), Option(dataFormat(f.createdOn)),None, slug, "Non_Live_Status") }
 
     publishedReport.union(nonPublishedReport).union(reviewData).union(limitedSharingData).toDF()

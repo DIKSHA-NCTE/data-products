@@ -40,7 +40,7 @@ trait CourseReport {
 
 object CourseUtils {
 
-  implicit val className: String = "org.sunbird.analytics.util.CourseUtils"
+  implicit val className: String = "org.sunbird.diksha.util.CourseUtils"
   val defaultContentStatus: Array[String] = Array("Live", "Unlisted", "Retired")
   val defaultContentFields: Array[String] = Array("identifier","name","organisation","channel","status","keywords","createdFor","medium","subject")
 

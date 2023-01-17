@@ -1,5 +1,4 @@
 package org.sunbird.diksha.util
-//package org.sunbird.analytics.util
 
 import java.text.SimpleDateFormat
 import java.util
