@@ -6,13 +6,11 @@
     <version>1.0</version>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <scoverage.plugin.version>1.4.11</scoverage.plugin.version>
         <scala.maj.version>2.12</scala.maj.version>
-        <scala.version>2.12.10</scala.version>
+        <scala.version>2.12.6</scala.version>
         <spark.maj.version>3.0</spark.maj.version>
-        <spark.version>3.1.0</spark.version>
         <spark.version>3.1.0</spark.version>
     </properties>
 

@@ -25,7 +25,7 @@ case class ContentMeta(totalQuestions: Int, contentType: String, contentId: Stri
 
 
 object AssessmentScoreCorrectionJob extends IJob with BaseReportsJob {
-  implicit val className: String = "org.sunbird.analytics.audit.AssessmentScoreCorrectionJob"
+  implicit val className: String = "org.sunbird.diksha.AssessmentScoreCorrectionJob"
   val cassandraFormat = "org.apache.spark.sql.cassandra"
   private val assessmentAggDBSettings = Map("table" -> "assessment_aggregator", "keyspace" -> AppConf.getConfig("sunbird.courses.keyspace"), "cluster" -> "LMSCluster")
   private val userEnrolmentDBSettings = Map("table" -> "user_enrolments", "keyspace" -> AppConf.getConfig("sunbird.courses.keyspace"), "cluster" -> "ReportCluster")

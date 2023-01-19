@@ -1,7 +1,7 @@
 package org.sunbird.diksha
 
 import org.ekstep.analytics.framework._
-import org.ekstep.analytics.framework.util.{CommonUtil,JSONUtils, RestUtil}
+import org.ekstep.analytics.framework.util.{CommonUtil,RestUtil}
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.apache.spark.sql.types.{StructField, _}

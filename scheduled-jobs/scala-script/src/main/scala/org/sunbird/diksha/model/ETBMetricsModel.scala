@@ -12,7 +12,6 @@ import org.ekstep.analytics.framework.util.CommonUtil
 import org.sunbird.diksha.util.{CourseUtils, TextBookUtils}
 import org.sunbird.cloud.storage.conf.AppConf
 
-
 case class TenantInfo(id: String, slug: String)
 case class TenantResponse(result: TenantResult)
 case class TenantResult(response: ContentList)

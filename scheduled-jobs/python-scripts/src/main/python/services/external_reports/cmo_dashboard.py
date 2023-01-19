@@ -11,7 +11,6 @@ from pathlib import Path
 from dataproducts.util.utils import post_data_to_blob, create_json, get_tenant_info, get_data_from_blob, \
     push_metric_event
 
-
 class CMODashboard:
     def __init__(self, data_store_location, execution_date, org_search):
         self.data_store_location = Path(data_store_location)

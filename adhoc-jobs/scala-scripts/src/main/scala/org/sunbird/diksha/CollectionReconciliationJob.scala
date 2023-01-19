@@ -46,7 +46,7 @@ object CollectionReconciliationJob extends IJob with BaseReportsJob {
     implicit val frameworkContext: FrameworkContext = getReportingFrameworkContext()
     init()
     try {
-      val res = CommonUtil.time(execute());
+      val res = CommonUtil.time(execute())
       JobLogger.end(s"$jobName completed execution", "SUCCESS", Option(Map("timeTaken" -> res._1)))
     } finally {
       frameworkContext.closeContext()
