@@ -22,11 +22,11 @@ case class AssessOutputEvent(assessmentTs: Long, batchId: String, courseId: Stri
 
 object AssessmentCorrectionModel extends IBatchModelTemplate[String,V3Event,AssessOutputEvent,AssessOutputEvent] with Serializable with BaseReportsJob {
 
-  implicit val className: String = "org.sunbird.lms.model.report.AssessmentCorrectionModel"
+  implicit val className: String = "org.sunbird.diksha.model.AssessmentCorrectionModel"
   override def name: String = "AssessmentCorrectionModel"
 
-  private val userEnrolmentDBSettings = Map("table" -> "user_enrolments", "keyspace" -> AppConf.getConfig("sunbird.courses.keyspace"), "cluster" -> "LMSCluster");
-  val cassandraFormat = "org.apache.spark.sql.cassandra";
+  private val userEnrolmentDBSettings = Map("table" -> "user_enrolments", "keyspace" -> AppConf.getConfig("sunbird.courses.keyspace"), "cluster" -> "LMSCluster")
+  val cassandraFormat = "org.apache.spark.sql.cassandra"
   val assessEvent = "ASSESS"
   val contentType = "SelfAssess"
 

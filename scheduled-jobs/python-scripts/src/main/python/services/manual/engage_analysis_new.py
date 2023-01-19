@@ -32,9 +32,9 @@ quoted_end_date = f"'{end_date}'"
 def DAU():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -42,29 +42,29 @@ def DAU():
         'Authorization': 'Bearer '
     }
     # Number of devices who reached on onboarding
-    query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid"='sunbird.app' AND "context_pdata_id" = 'prod.diksha.app' AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date;
+    query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid"='sunbird.app' AND "context_pdata_id" = 'prod.diksha.app' AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -72,9 +72,9 @@ def DAU():
 def Launched():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -85,26 +85,26 @@ def Launched():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app' AND "context_env"='home' AND "eid"='INTERACT' AND "edata_type"='OTHER' AND "edata_pageid"='splash' AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -112,9 +112,9 @@ def Launched():
 def New_Users():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -125,26 +125,26 @@ def New_Users():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app' AND "context_env"='onboarding' AND "eid"='IMPRESSION' AND "edata_type"='view' AND "edata_pageid"='onboarding-language-setting' AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -152,9 +152,9 @@ def New_Users():
 def Unique_Device_Session():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -165,26 +165,26 @@ def Unique_Device_Session():
     query_str = '''SELECT COUNT(DISTINCT "context_sid") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app' AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -192,9 +192,9 @@ def Unique_Device_Session():
 def Total_Device_Session():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -205,26 +205,26 @@ def Total_Device_Session():
     query_str = '''SELECT COUNT("context_sid") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app' AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -232,9 +232,9 @@ def Total_Device_Session():
 def Saw_User_Type():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -245,26 +245,26 @@ def Saw_User_Type():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app' AND "context_env"='onboarding' AND "eid"='IMPRESSION' AND "edata_type"='view' AND "edata_pageid"='user-type-selection' AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -272,9 +272,9 @@ def Saw_User_Type():
 def Saw_Permission_Screen():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -285,26 +285,26 @@ def Saw_Permission_Screen():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app' AND "eid"='IMPRESSION' AND "edata_type"='view' AND "edata_pageid"= 'permission' AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -312,9 +312,9 @@ def Saw_Permission_Screen():
 def Saw_Onboarding():
     
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -325,35 +325,35 @@ def Saw_Onboarding():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app' AND "context_env"='onboarding' AND "eid"='IMPRESSION' AND "edata_type"='view' AND "edata_pageid"='profile-settings' AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
-        print(e.__class__.__name__ + '-' + str(e));
+        print(e.__class__.__name__ + '-' + str(e))
 
 def Onboarding_Finished():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -364,36 +364,36 @@ def Onboarding_Finished():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app' AND "eid"='INTERACT' AND "edata_type"='OTHER' AND "edata_subtype"='profile-attribute-population' AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
-        print(e.__class__.__name__ + '-' + str(e));
+        print(e.__class__.__name__ + '-' + str(e))
 
 
 def Finished_Manual_Onboarding():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -404,36 +404,36 @@ def Finished_Manual_Onboarding():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app'  AND "eid"='INTERACT' AND "edata_type"='OTHER' AND "edata_subtype" = 'profile-attribute-population' AND "edata_pageid"='profile-settings' AND "context_env" = 'onboarding' AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
-        print(e.__class__.__name__ + '-' + str(e));
+        print(e.__class__.__name__ + '-' + str(e))
 
 
 def Saw_Location_Ask():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -444,26 +444,26 @@ def Saw_Location_Ask():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app'  AND "eid"='IMPRESSION' AND "edata_type"='view' AND "edata_pageid"='district-mapping' AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -471,9 +471,9 @@ def Saw_Location_Ask():
 def Submitted_Location_Ask():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -484,26 +484,26 @@ def Submitted_Location_Ask():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app'  AND "eid"= 'INTERACT'  AND "edata_pageid" ='district-mapping' AND "edata_type" = 'location-changed' AND "edata_id" = 'submit-clicked' AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -511,9 +511,9 @@ def Submitted_Location_Ask():
 def Landed_On_Library():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -524,26 +524,26 @@ def Landed_On_Library():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app'  AND "eid"='IMPRESSION' AND "context_env"='home' AND "edata_pageid" IN ('library','resources') AND "edata_type" = 'view' AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -551,9 +551,9 @@ def Landed_On_Library():
 def Unique_Tapped_On_Textbook():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -564,26 +564,26 @@ def Unique_Tapped_On_Textbook():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app'  AND "eid"= 'INTERACT'  AND "context_env" ='home' AND "edata_pageid" = 'library' AND "edata_type" = 'TOUCH' AND "edata_subtype" = 'content-clicked'  AND "object_type" IN ('TextBook','Digital Textbook') AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -591,9 +591,9 @@ def Unique_Tapped_On_Textbook():
 def Total_Tapped_On_Textbook():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -604,26 +604,26 @@ def Total_Tapped_On_Textbook():
     query_str = '''SELECT COUNT("context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app'  AND "eid"= 'INTERACT'  AND "context_env" ='home' AND "edata_pageid" = 'library' AND "edata_type" = 'TOUCH' AND "edata_subtype" = 'content-clicked'  AND "object_type" IN ('TextBook','Digital Textbook') AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -631,9 +631,9 @@ def Total_Tapped_On_Textbook():
 def Unique_Tapped_Content():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -644,26 +644,26 @@ def Unique_Tapped_Content():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app'  AND "eid"= 'INTERACT'  AND "context_env" ='home' AND "edata_pageid" = 'collection-detail' AND "edata_type" = 'TOUCH' AND "edata_subtype" = 'content-clicked'  AND "object_type" IN ('Resource','Explanation Content','Learning Resource','Practice Question Set','eTextbook','Teacher Resource','Course Assessment') AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -671,9 +671,9 @@ def Unique_Tapped_Content():
 def Total_Tapped_Content():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -684,26 +684,26 @@ def Total_Tapped_Content():
     query_str = '''SELECT COUNT("context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app'  AND "eid"= 'INTERACT'  AND "context_env" ='home' AND "edata_pageid" = 'collection-detail' AND "edata_type" = 'TOUCH' AND "edata_subtype" = 'content-clicked'  AND "object_type" IN ('Resource','Explanation Content','Learning Resource','Practice Question Set','eTextbook','Teacher Resource','Course Assessment') AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -711,9 +711,9 @@ def Total_Tapped_Content():
 def Unique_Tapped_Qr():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -724,26 +724,26 @@ def Unique_Tapped_Qr():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app'  AND "eid"= 'INTERACT'  AND "edata_type" ='TOUCH' AND "edata_subtype" = 'tab-clicked' AND "edata_pageid" = 'qr-code-scanner' AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -751,9 +751,9 @@ def Unique_Tapped_Qr():
 def Total_Tapped_Qr():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -764,26 +764,26 @@ def Total_Tapped_Qr():
     query_str = '''SELECT COUNT("context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app'  AND "eid"= 'INTERACT'  AND "edata_type" ='TOUCH' AND "edata_subtype" = 'tab-clicked' AND "edata_pageid" = 'qr-code-scanner' AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -792,9 +792,9 @@ def Total_Tapped_Qr():
 def Saw_Result():
 
     #List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     #Header details for POST request
     headers = {
@@ -805,26 +805,26 @@ def Saw_Result():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app'  AND "eid"= 'IMPRESSION'  AND "edata_type" ='view' AND  "edata_pageid" = 'dial-code-scan-result' AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -833,9 +833,9 @@ def Scan_UTM_Info():
 
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -846,35 +846,35 @@ def Scan_UTM_Info():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app'  AND "eid"= 'INTERACT'  AND "edata_type" ='OTHER' AND "edata_subtype" = 'utm-info' AND "edata_pageid" = 'qr-code-scanner' AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
 def Scan_Initiate():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -885,26 +885,26 @@ def Scan_Initiate():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app'  AND "eid"= 'IMPRESSION'  AND "edata_type" ='view' AND "edata_subtype" = 'qr-code-scan-initiate'  AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -912,9 +912,9 @@ def Scan_Initiate():
 def Scan_Walk_Through():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -925,40 +925,35 @@ def Scan_Walk_Through():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app'  AND "eid"= 'IMPRESSION'  AND "edata_type" ='view' AND "edata_subtype" = 'qr-scan-walkthrough'  AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
-
-
-
-
-
 
 def Scan_Success():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -969,36 +964,35 @@ def Scan_Success():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app'  AND "eid"= 'INTERACT'  AND "edata_type" ='OTHER' AND "edata_subtype" = 'qr-code-scan-success'  AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
-
 
 def Scan_Cancelled():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -1009,26 +1003,26 @@ def Scan_Cancelled():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app'  AND "eid"= 'INTERACT'  AND "edata_type" ='OTHER' AND "edata_subtype" = 'qr-code-scan-cancelled'  AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -1036,9 +1030,9 @@ def Scan_Cancelled():
 def Scan_Comming_Soon():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -1049,37 +1043,35 @@ def Scan_Comming_Soon():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app'  AND "eid"= 'INTERACT'  AND "edata_type" ='OTHER'  AND "edata_subtype" = 'qr-code-comingsoon'  AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
-
-
 
 def Scan_Invalid():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -1090,38 +1082,35 @@ def Scan_Invalid():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app'  AND "eid"= 'INTERACT'  AND "edata_type" ='OTHER'  AND "edata_subtype" = 'qr-code-invalid'  AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
-
-
-
 
 def Tapped_On_Play():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -1132,26 +1121,26 @@ def Tapped_On_Play():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_id"='prod.diksha.app'  AND "eid"= 'INTERACT'  AND  "edata_type" = 'TOUCH' AND "edata_subtype" IN('play-online','play-from-device')  AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -1159,9 +1148,9 @@ def Tapped_On_Play():
 def Unique_Overall_Play():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -1172,26 +1161,26 @@ def Unique_Overall_Play():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_id"='prod.diksha.app'  AND "eid"= 'START'  AND "edata_type" = 'content' AND "context_env" IN('contentplayer','ContentPlayer')  AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -1199,9 +1188,9 @@ def Unique_Overall_Play():
 def Total_Overall_Play():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -1212,39 +1201,36 @@ def Total_Overall_Play():
     query_str = '''SELECT COUNT("context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_id"='prod.diksha.app'  AND "eid"= 'START'  AND "edata_type" = 'content' AND "context_env" IN ('contentplayer','ContentPlayer') AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
-
-
-
 
 
 def Content_Play_End():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -1255,26 +1241,26 @@ def Content_Play_End():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_id"='prod.diksha.app'  AND "edata_pageid"= 'sunbird-player-Endpage'  AND "context_cdata_type" = 'PlayerLaunch' AND "eid" = 'END'  AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -1283,9 +1269,9 @@ def Content_Play_Cancel():
 
 
  # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -1296,37 +1282,35 @@ def Content_Play_Cancel():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_id"='prod.diksha.app'  AND "edata_type"= 'OTHER'  AND "context_env" = 'contentplayer' AND  "eid" = 'INTERRUPT' AND "edata_pageid" IS NOT NULL  AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
-
-
 
 def Download_Initiate():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -1337,26 +1321,26 @@ def Download_Initiate():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app'  AND "eid"= 'INTERACT'  AND "edata_type" ='OTHER' AND "edata_subtype" = 'ContentDownload-Initiate' AND "context_env" = 'sdk' AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -1364,9 +1348,9 @@ def Download_Initiate():
 def Download_Cancelled():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -1377,26 +1361,26 @@ def Download_Cancelled():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app'  AND "eid"= 'INTERACT'  AND "edata_type" ='OTHER' AND "edata_subtype" = 'ContentDownload-Cancel' AND "context_env" = 'sdk' AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -1404,9 +1388,9 @@ def Download_Cancelled():
 def Download_Success():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -1417,26 +1401,26 @@ def Download_Success():
     query_str = '''SELECT COUNT(DISTINCT "context_did") FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_pid" = 'sunbird.app' AND "context_pdata_id"='prod.diksha.app'  AND "eid"= 'INTERACT'  AND "edata_type" ='OTHER' AND "edata_subtype" = 'ContentDownload-Success' AND "context_env" = 'sdk' AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -1444,9 +1428,9 @@ def Download_Success():
 def search_button_clicked_unique_did():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -1457,27 +1441,27 @@ def search_button_clicked_unique_did():
     query_str = '''SELECT COUNT(DISTINCT "context_did")  FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_id"= 'prod.diksha.app' AND "eid" = 'INTERACT' AND "edata_type" = 'TOUCH'  AND (("edata_subtype" = 'search-button-clicked') OR ("edata_subtype" = 'search-buttonclicked'))   AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
 
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 
@@ -1485,9 +1469,9 @@ def search_button_clicked_unique_did():
 def search_button_clicked_total_did():
 
     # List declaration to store fetched data
-    date_list = [];
-    count_list = [];
-    date_list.append(date);
+    date_list = []
+    count_list = []
+    date_list.append(date)
 
     # Header details for POST request
     headers = {
@@ -1498,27 +1482,27 @@ def search_button_clicked_total_did():
     query_str = '''SELECT COUNT("context_did")  FROM "druid"."telemetry-events-syncts" WHERE "context_pdata_id"= 'prod.diksha.app' AND "eid" = 'INTERACT' AND "edata_type" = 'TOUCH'  AND (("edata_subtype" = 'search-button-clicked') OR ("edata_subtype" = 'search-buttonclicked'))   AND "__time">=''' + quoted_start_date + '''AND "__time"<''' + quoted_end_date
 
     data = {"query": query_str}
-    jsondata = json.dumps(data);
+    jsondata = json.dumps(data)
 
     # Fetching data from Druid using POST request
     try:
         response = requests.post('http://11.4.3.46:8000/druid/sql', headers=headers, data=jsondata)
-        x = response.json();
+        x = response.json()
         if (len(x) != 0):
-            count_list = list(x[0].values());
+            count_list = list(x[0].values())
         else:
-            count_list.append(0);
+            count_list.append(0)
 
         if not os.path.exists(output_dir):
-            os.mkdir(output_dir);
-        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv");
+            os.mkdir(output_dir)
+        filename = os.path.join(output_dir, sys._getframe().f_code.co_name + ".csv")
 
         # Storing count of devices to CSV File
         with open(filename, 'a') as f:
             writer = csv.writer(f)
             if (os.stat(filename).st_size == 0):
                 writer.writerow(["date", "count"])
-            writer.writerows(zip(date_list, count_list));
+            writer.writerows(zip(date_list, count_list))
     except Exception as e:
         print(e.__class__.__name__ + '-' + str(e))
 

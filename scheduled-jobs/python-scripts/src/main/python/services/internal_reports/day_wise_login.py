@@ -77,7 +77,7 @@ def User_Sigin_Type():
 
     headers = {
         'content-type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI4ZjAzZWQwYzEyZTc0M2QyYThkODUwY2NiZGY3NDcwYiJ9.wFgqxxqIUhCygwefz5ee4t3p8-iajXfDpg1OZdWRoVo'
+        'Authorization': 'Bearer '
     }
 
     query_str = {

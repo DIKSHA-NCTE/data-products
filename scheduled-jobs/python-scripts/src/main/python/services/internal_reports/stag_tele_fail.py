@@ -4,7 +4,6 @@ from pathlib import Path
 
 from datetime import datetime, timedelta
 from azure.storage.blob import *
-#from azure.storage.blob import BlockBlobService
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as fn
 

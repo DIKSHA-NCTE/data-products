@@ -2,7 +2,7 @@ package org.sunbird.diksha.util
 
 import org.apache.spark.SparkContext
 import org.apache.spark.sql.functions.col
-import org.apache.spark.sql.{DataFrame, SQLContext, SparkSession}
+import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.ekstep.analytics.framework.Level.{ERROR, INFO}
 import org.ekstep.analytics.framework.util.DatasetUtil.extensions
 import org.ekstep.analytics.framework.util.{JSONUtils, JobLogger, MergeUtil, RestUtil}
@@ -10,8 +10,6 @@ import org.ekstep.analytics.framework.{FrameworkContext, MergeConfig, MergeFiles
 import org.ekstep.analytics.model.{OutputConfig, ReportConfig}
 import org.sunbird.cloud.storage.conf.AppConf
 
-
-import scala.collection.immutable.List
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 import scala.concurrent.{Future, _}
@@ -77,7 +75,7 @@ object CourseUtils {
     loadData(spark, Map("table" -> "organisation", "keyspace" -> sunbirdKeyspace)).select("slug","id")
   }
 
-  def postDataToBlob(data: DataFrame, outputConfig: OutputConfig, config: Map[String, AnyRef])(implicit sc: SparkContext, fc: FrameworkContext) = {
+  def postDataToBlob(data: DataFrame, outputConfig: OutputConfig, config: Map[String, AnyRef])(implicit sc: SparkContext, fc: FrameworkContext): Unit = {
     val configMap = config("reportConfig").asInstanceOf[Map[String, AnyRef]]
     val reportConfig = JSONUtils.deserialize[ReportConfig](JSONUtils.serialize(configMap))
 
@@ -177,5 +175,4 @@ object CourseUtils {
     val response = RestUtil.post[Map[String, String]](apiUrl, ingestionData, None)
     JobLogger.log(s"Ingestion Task Id: $response", None, INFO)
   }
-
 }

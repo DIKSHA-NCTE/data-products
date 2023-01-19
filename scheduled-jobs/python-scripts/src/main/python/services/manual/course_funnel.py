@@ -6,7 +6,6 @@ import pandas as pd
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-
 date       = sys.argv[1]
 start_date = sys.argv[2]
 end_date   = sys.argv[3]

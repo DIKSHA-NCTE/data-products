@@ -1,8 +1,6 @@
 package org.sunbird.diksha.util
 
 import java.text.SimpleDateFormat
-import java.util
-import java.util.Calendar
 
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
@@ -15,7 +13,6 @@ import org.ekstep.analytics.model.ReportConfig
 import org.sunbird.diksha.model._
 
 import scala.util.control.Breaks._
-import scala.util.control._
 
 case class ETBTextbookData(channel: String, identifier: String, name: String, medium: String, gradeLevel: String,
                            subject: String, status: String, createdOn: String, lastUpdatedOn: String, totalContentLinked: Int,
@@ -46,7 +43,7 @@ object TextBookUtils {
     result.collect().toList
   }
 
-  def getTextbookHierarchy(config: Map[String, AnyRef], textbookInfo: List[TextbookData],tenantInfo: RDD[TenantInfo],restUtil: HTTPClient)(implicit sc: SparkContext, fc: FrameworkContext): (RDD[FinalOutput]) = {
+  def getTextbookHierarchy(config: Map[String, AnyRef], textbookInfo: List[TextbookData],tenantInfo: RDD[TenantInfo],restUtil: HTTPClient)(implicit sc: SparkContext, fc: FrameworkContext):RDD[FinalOutput] = {
     val reportTuple = for {textbook <- textbookInfo
                            baseUrl = s"${AppConf.getConfig("hierarchy.search.api.url")}${AppConf.getConfig("hierarchy.search.api.path")}${textbook.identifier}"
                            finalUrl = if("Live".equals(textbook.status)) baseUrl else s"$baseUrl?mode=edit"
@@ -70,7 +67,7 @@ object TextBookUtils {
     val dceTextBookReport = reportTuple.filter(f => f._2.nonEmpty).map(f => f._2.head)
     val dceDialCodeReport = reportTuple.map(f => f._3).filter(f => f.nonEmpty)
     val dcereport = dceDialCodeReport.flatten
-    val filteredReport = dcereport.filter(f=>(f.medium.contains(","))).distinct ++ dcereport.filter(p=>((!p.medium.contains(","))))
+    val filteredReport = dcereport.filter(f=>f.medium.contains(",")).distinct ++ dcereport.filter(p=>(!p.medium.contains(",")))
     val dceDialcodeReport=filteredReport.filter(f=>(f.gradeLevel.contains(","))).distinct ++ filteredReport.filter(p=>((!p.gradeLevel.contains(","))))
     val etbDialCodeReport = reportTuple.map(f => f._4).filter(f => f.nonEmpty)
     val etbreport = etbDialCodeReport.flatten
